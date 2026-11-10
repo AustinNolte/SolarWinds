@@ -18,4 +18,8 @@ export const relations = defineRelations(schema, (r) => ({
     messages: r.many.messages(),
     membership: r.many.usersToChatRooms(),
   },
+  usersToChatRooms: {
+    user: r.one.users({ from: r.usersToChatRooms.userId, to: r.users.id }),
+    room: r.one.chatRooms({ from: r.usersToChatRooms.roomId, to: r.chatRooms.id }),
+  },
 }));
