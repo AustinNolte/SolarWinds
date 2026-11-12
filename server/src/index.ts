@@ -2,6 +2,8 @@ import "dotenv/config";
 import express, { type Request, type Response } from "express";
 import cookieParser from "cookie-parser";
 import { authRouter } from "./routes/auth.js";
+import { chatRoomRouter } from "./routes/chatRooms.js";
+import { requireAuth } from "./middleware/requireAuth.js";
 import cors, { CorsOptions } from "cors";
 
 const app = express();
@@ -22,6 +24,7 @@ app.get("/api/health", (_req: Request, res: Response) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api", requireAuth, chatRoomRouter);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);

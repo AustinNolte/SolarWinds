@@ -48,10 +48,10 @@ export const usersToChatRooms = pgTable(
   {
     userId: uuid("user_id")
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: "cascade" }),
     roomId: uuid("room_id")
       .notNull()
-      .references(() => chatRooms.id),
+      .references(() => chatRooms.id, { onDelete: "cascade" }),
   },
   (table) => [primaryKey({ columns: [table.userId, table.roomId] })],
 );
